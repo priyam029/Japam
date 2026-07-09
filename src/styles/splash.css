@@ -1,0 +1,106 @@
+.splash-screen{
+    position:fixed;
+    inset:0;
+    background:#090909;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    animation:fadeOut 1s ease forwards;
+    animation-delay:3s;
+}
+
+.logo-wrapper{
+    text-align:center;
+}
+
+.om-logo{
+
+    font-size:120px;
+    color:#FFD700;
+
+    animation:
+        logoSpin 2.5s ease,
+        logoGlow 2s infinite alternate,
+        logoZoom 2s ease;
+
+}
+
+.splash-title{
+
+    margin-top:25px;
+
+    color:white;
+
+    font-size:60px;
+
+    font-family:"Noto Serif Devanagari",serif;
+
+    opacity:0;
+
+    animation:titleAppear 1s forwards;
+
+    animation-delay:1.2s;
+
+}
+
+@keyframes logoSpin{
+
+    from{
+        transform:rotate(-180deg);
+    }
+
+    to{
+        transform:rotate(0deg);
+    }
+
+}
+
+@keyframes logoGlow{
+
+    from{
+        text-shadow:0 0 10px gold;
+    }
+
+    to{
+        text-shadow:
+        0 0 25px gold,
+        0 0 60px orange;
+    }
+
+}
+
+@keyframes logoZoom{
+
+    from{
+        transform:scale(.2);
+    }
+
+    to{
+        transform:scale(1);
+    }
+
+}
+
+@keyframes titleAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes fadeOut{
+
+    to{
+        opacity:0;
+        visibility:hidden;
+    }
+
+}
