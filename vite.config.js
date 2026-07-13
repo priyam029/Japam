@@ -1,43 +1,48 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
     react(),
 
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: "prompt",
+
+      includeAssets: [
+        "icon-192.png",
+        "icon-512.png",
+      ],
 
       manifest: {
-        name: 'जपम्',
-        short_name: 'Japam',
+        name: "जपम्",
+        short_name: "Japam",
+        description: "A peaceful chanting companion",
 
-        description: 'A peaceful chanting companion',
+        theme_color: "#d84315",
+        background_color: "#000000",
 
-        theme_color: '#d84315',
-
-        background_color: '#000000',
-
-        display: 'standalone',
-
-        orientation: 'portrait',
-
-        start_url: '/',
+        display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
 
         icons: [
           {
-            src: 'icon-192.png',
-            sizes: '192x192',
-            type: 'image/png'
+            src: "icon-192.png",
+            sizes: "192x192",
+            type: "image/png",
           },
           {
-            src: 'icon-512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      }
-    })
-  ]
-})
+            src: "icon-512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+
+      devOptions: {
+        enabled: false,
+      },
+    }),
+  ],
+});
