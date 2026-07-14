@@ -1,60 +1,99 @@
-import { useState } from "react";
-import { playBell } from "../utils/playBell";
+import { useState, useEffect } from "react";
+import {
+  playBell,
+  playBackground,
+  pauseBackground,
+} from "../utils/playBell";
+
 import "../styles/celebration.css";
 import LotusPetals from "./LotusPetals";
+import { Volume2, VolumeX } from "lucide-react";
 
 function Counter() {
   const [count, setCount] = useState(0);
   const [round, setRound] = useState(0);
+
   const [showPopup, setShowPopup] = useState(false);
   const [goldenGlow, setGoldenGlow] = useState(false);
   const [showPetals, setShowPetals] = useState(false);
 
+  const [musicPlaying, setMusicPlaying] = useState(true);
+
+  // Automatically start background music
+useEffect(() => {
+  playBackground();
+
+  return () => {
+    pauseBackground();
+  };
+}, []);
+
   function handleTap() {
     if (count === 107) {
-      // Play bell sound
+
       playBell();
 
-      // Increase round
       setRound((prev) => prev + 1);
-
-      // Reset count
       setCount(0);
 
-      // Show popup
       setShowPopup(true);
       setGoldenGlow(true);
       setShowPetals(true);
 
-      // Hide popup after 2.5 seconds
       setTimeout(() => {
         setShowPopup(false);
         setGoldenGlow(false);
         setShowPetals(false);
       }, 3000);
 
-      // Vibrate phone (if supported)
       if (navigator.vibrate) {
         navigator.vibrate(300);
       }
+
     } else {
       setCount((prev) => prev + 1);
     }
   }
+
+  function toggleMusic() {
+
+    if (musicPlaying) {
+      pauseBackground();
+      setMusicPlaying(false);
+    } else {
+      playBackground();
+      setMusicPlaying(true);
+    }
+
+  }
+
   function restartRound() {
 
     const confirmReset = window.confirm(
-        "Restart the current chanting round?"
+      "Restart the current chanting round?"
     );
 
     if (confirmReset) {
-        setCount(0);
+      setCount(0);
     }
 
-}
+  }
 
   return (
     <>
+      {/* Floating Music Icon */}
+
+      <button
+        className="music-toggle"
+        onClick={toggleMusic}
+      >
+        {musicPlaying ? (
+          <Volume2 size={26} />
+        ) : (
+          <VolumeX size={26} />
+        )}
+      </button>
+
       <div className="chant-container">
 
         <div className="om-button" onClick={handleTap}>
@@ -67,19 +106,26 @@ function Counter() {
 
         <p>Round : {round}</p>
 
-        <button className="restart-btn" onClick={restartRound}>
-            🔄 Restart Current Round
+        <button
+          className="restart-btn"
+          onClick={restartRound}
+        >
+          🔄 Restart Current Round
         </button>
 
       </div>
+
       {goldenGlow && <div className="golden-glow"></div>}
 
       {showPetals && <LotusPetals />}
 
       {showPopup && (
+
         <div className="popup">
 
-          <div className="popup-lamp">🪔</div>
+          <div className="popup-lamp">
+            🪔
+          </div>
 
           <h2>🌸 Round Completed 🌸</h2>
 
@@ -88,7 +134,9 @@ function Counter() {
           <p>ॐ नमः शिवाय</p>
 
         </div>
+
       )}
+
     </>
   );
 }

@@ -1,11 +1,26 @@
-import bell from "../assets/audio/bell.ogg";
+import bell from "../assets/audio/bell.mp3";
+import background from "../assets/audio/background.mp3";
+
+const bellAudio = new Audio(bell);
+bellAudio.volume = 0.8;
+
+const bgAudio = new Audio(background);
+bgAudio.loop = true;
+bgAudio.volume = 0.25;
 
 export function playBell() {
-  const audio = new Audio(bell);
-
-  audio.volume = 0.7;
-
-  audio.play().catch((err) => {
-    console.error("Bell sound error:", err);
+  bellAudio.currentTime = 0;
+  bellAudio.play().catch((err) => {
+    console.error(err);
   });
+}
+
+export function playBackground() {
+  bgAudio.play().catch((err) => {
+    console.error(err);
+  });
+}
+
+export function pauseBackground() {
+  bgAudio.pause();
 }
