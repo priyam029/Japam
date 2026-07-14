@@ -82,15 +82,30 @@ function Counter() {
       {/* Floating Music Icon */}
 
       <button
-        className="music-toggle"
-        onClick={toggleMusic}
-      >
-        {musicPlaying ? (
-          <Volume2 size={26} />
-        ) : (
-          <VolumeX size={26} />
-        )}
-      </button>
+  style={{
+    position: "fixed",
+    top: "20px",
+    right: "20px",
+    width: "60px",
+    height: "60px",
+    background: "red",
+    color: "white",
+    zIndex: 99999,
+    borderRadius: "50%"
+  }}
+  onClick={toggleMusic}
+>
+  🎵
+</button>
+        
+        
+      
+        
+         
+        
+          
+      
+      
 
       <div className="chant-container">
 
