@@ -18,17 +18,15 @@ function Counter() {
   const [showPetals, setShowPetals] = useState(false);
 
   const [musicPlaying, setMusicPlaying] = useState(true);
-
+  const [musicStarted, setMusicStarted] = useState(false);
   // Automatically start background music
-useEffect(() => {
-  playBackground();
 
-  return () => {
-    pauseBackground();
-  };
-}, []);
 
   function handleTap() {
+   if (!musicStarted) {
+  playBackground();
+  setMusicStarted(true);
+    } 
     if (count === 107) {
 
       playBell();

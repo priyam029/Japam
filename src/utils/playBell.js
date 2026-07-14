@@ -11,7 +11,7 @@ bgAudio.volume = 0.25;
 export function playBell() {
   bellAudio.currentTime = 0;
   bellAudio.play().catch((err) => {
-    console.error(err);
+    console.error("Bell:", err);
   });
 }
 
